@@ -106,17 +106,8 @@ body {
 }
 
 .hero h1 span {
-    background: linear-gradient(
-        90deg,
-        #00f5ff,
-        #7c4dff,
-        #ff4ecd
-    );
-
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
+    color: #00f5ff;
 }
-
 .hero h2 {
     font-size: clamp(25px, 4vw, 40px);
     color: white;
