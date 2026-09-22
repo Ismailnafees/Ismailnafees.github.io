@@ -888,4 +888,13 @@ footer p:first-child {
         transform: scale(1.2);
     }
 }
+.hero-content .button.secondary:last-child {
+    border-color: rgba(255, 255, 255, 0.25);
+    color: #ffffff;
+}
+
+.hero-content .button.secondary:last-child:hover {
+    border-color: #00f5ff;
+    color: #00f5ff;
+}
 /* GitHub Pages deployment refresh */
