@@ -1,58 +1,210 @@
-body {
-    font-family: Arial, sans-serif;
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+
+* {
     margin: 0;
-    background: #f5f7fa;
-    color: #222;
-    line-height: 1.6;
+    padding: 0;
+    box-sizing: border-box;
 }
 
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: 'Inter', sans-serif;
+    background:
+        radial-gradient(circle at 10% 10%, rgba(0, 255, 255, 0.12), transparent 30%),
+        radial-gradient(circle at 90% 20%, rgba(140, 0, 255, 0.15), transparent 30%),
+        #070b18;
+    color: #eaf2ff;
+    line-height: 1.7;
+}
+
+/* HEADER */
+
 header {
-    background: #111827;
-    color: white;
+    min-height: 90vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
     text-align: center;
-    padding: 60px 20px;
+    padding: 40px 20px;
+    background:
+        linear-gradient(135deg, rgba(0, 255, 255, 0.08), rgba(125, 0, 255, 0.12));
+    border-bottom: 1px solid rgba(255,255,255,0.1);
 }
 
 header h1 {
-    font-size: 42px;
-    margin-bottom: 10px;
+    font-size: clamp(42px, 8vw, 80px);
+    font-weight: 800;
+    background: linear-gradient(90deg, #00f5ff, #7c4dff, #ff4ecd);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    margin-bottom: 15px;
+}
+
+header h2 {
+    font-size: clamp(24px, 4vw, 40px);
+    color: #ffffff;
+    margin-bottom: 15px;
 }
 
 header p {
-    font-size: 20px;
+    font-size: 18px;
+    color: #aab8d4;
+    margin-bottom: 30px;
 }
+
+/* BUTTONS */
+
+.button {
+    display: inline-block;
+    margin: 8px;
+    padding: 13px 25px;
+    border-radius: 30px;
+    text-decoration: none;
+    color: white;
+    font-weight: 600;
+    background: linear-gradient(90deg, #00c6ff, #7c4dff);
+    box-shadow: 0 0 20px rgba(0, 198, 255, 0.25);
+    transition: 0.3s;
+}
+
+.button:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 0 30px rgba(0, 198, 255, 0.55);
+}
+
+/* SECTIONS */
 
 section {
-    max-width: 900px;
-    margin: 30px auto;
+    max-width: 1050px;
+    margin: 70px auto;
+    padding: 40px;
+    background: rgba(15, 23, 42, 0.72);
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 25px;
+    backdrop-filter: blur(15px);
+    box-shadow: 0 20px 60px rgba(0,0,0,0.25);
+}
+
+section h2 {
+    font-size: 32px;
+    margin-bottom: 25px;
+    color: #ffffff;
+}
+
+section h2::after {
+    content: "";
+    display: block;
+    width: 60px;
+    height: 4px;
+    margin-top: 8px;
+    border-radius: 10px;
+    background: linear-gradient(90deg, #00f5ff, #7c4dff);
+}
+
+section p {
+    color: #aebbd2;
+}
+
+/* SKILLS */
+
+.skills {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 14px;
+}
+
+.skills span {
+    padding: 12px 20px;
+    border-radius: 30px;
+    background: rgba(0, 245, 255, 0.08);
+    border: 1px solid rgba(0, 245, 255, 0.25);
+    color: #63f7ff;
+    font-weight: 600;
+    transition: 0.3s;
+}
+
+.skills span:hover {
+    transform: translateY(-4px);
+    background: rgba(124, 77, 255, 0.2);
+    box-shadow: 0 0 20px rgba(124, 77, 255, 0.3);
+}
+
+/* PROJECT */
+
+.project {
     padding: 30px;
-    background: white;
-    border-radius: 12px;
+    border-radius: 20px;
+    background:
+        linear-gradient(135deg, rgba(0,245,255,0.06), rgba(124,77,255,0.08));
+    border: 1px solid rgba(255,255,255,0.08);
 }
 
-h2 {
-    color: #111827;
-    border-bottom: 2px solid #ddd;
-    padding-bottom: 8px;
+.project h3 {
+    font-size: 25px;
+    color: #ffffff;
+    margin-bottom: 15px;
 }
 
-ul {
-    padding-left: 25px;
+/* STATS */
+
+.stats {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 15px;
+    margin: 30px 0;
 }
 
-a {
-    color: #2563eb;
-    text-decoration: none;
+.stats div {
+    padding: 20px;
+    text-align: center;
+    border-radius: 18px;
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(255,255,255,0.08);
 }
 
-a:hover {
-    text-decoration: underline;
+.stats strong {
+    display: block;
+    font-size: 24px;
+    color: #00f5ff;
 }
+
+.stats small {
+    color: #9aa9c4;
+}
+
+/* FOOTER */
 
 footer {
     text-align: center;
-    background: #111827;
-    color: white;
-    padding: 25px;
-    margin-top: 40px;
+    padding: 40px 20px;
+    margin-top: 80px;
+    background: #050814;
+    color: #75839d;
+    border-top: 1px solid rgba(255,255,255,0.08);
+}
+
+/* MOBILE */
+
+@media (max-width: 700px) {
+
+    header {
+        min-height: 80vh;
+    }
+
+    section {
+        margin: 30px 15px;
+        padding: 25px;
+    }
+
+    .stats {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    header h1 {
+        font-size: 44px;
+    }
 }
