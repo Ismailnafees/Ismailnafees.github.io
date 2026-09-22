@@ -106,7 +106,7 @@ body {
 }
 
 .hero h1 span {
-    color: #00f5ff;
+    color: #ffffff;
 }
 .hero h2 {
     font-size: clamp(25px, 4vw, 40px);
