@@ -1085,4 +1085,17 @@ footer p:first-child {
         padding-right: 20px;
     }
 }
+@media (max-width: 700px) {
+    .project-preview {
+        border-radius: 14px;
+    }
+
+    .project-preview img {
+        max-height: 300px;
+    }
+
+    .project-card {
+        padding: 25px;
+    }
+}
 /* GitHub Pages deployment refresh */
