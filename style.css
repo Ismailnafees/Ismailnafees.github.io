@@ -1218,4 +1218,16 @@ body {
     border: 1px solid #dbeafe;
     color: #2563eb;
 }
+.project-stats div {
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
+}
+
+.project-stats strong {
+    color: #2563eb;
+}
+
+.project-stats span {
+    color: #64748b;
+}
 /* GitHub Pages deployment refresh */
