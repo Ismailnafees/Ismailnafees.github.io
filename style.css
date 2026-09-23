@@ -929,5 +929,44 @@ footer p:first-child {
         top: 65px;
         right: 12px;
     }
+}/* Project Dashboard Preview */
+
+.project-preview {
+    margin-bottom: 25px;
+    border-radius: 20px;
+    overflow: hidden;
+
+    background: rgba(0, 0, 0, 0.2);
+
+    border: 1px solid rgba(255, 255, 255, 0.08);
+
+    box-shadow:
+        0 20px 50px rgba(0, 0, 0, 0.25);
+
+    transition: 0.3s ease;
 }
+
+.project-preview:hover {
+    transform: translateY(-4px);
+
+    border-color:
+        rgba(0, 245, 255, 0.3);
+
+    box-shadow:
+        0 25px 60px rgba(0, 245, 255, 0.12);
+}
+
+.project-preview img {
+    display: block;
+
+    width: 100%;
+    height: auto;
+
+    transition: 0.4s ease;
+}
+
+.project-preview:hover img {
+    transform: scale(1.02);
+}
+
 /* GitHub Pages deployment refresh */
