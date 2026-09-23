@@ -1183,4 +1183,17 @@ body {
 .section-title p {
     color: #2563eb;
 }
+.skill-card {
+    background: rgba(255, 255, 255, 0.85);
+    border: 1px solid rgba(37, 99, 235, 0.12);
+    box-shadow: 0 10px 30px rgba(15, 23, 42, 0.06);
+}
+
+.skill-card h3 {
+    color: #172033;
+}
+
+.skill-card p {
+    color: #64748b;
+}
 /* GitHub Pages deployment refresh */
