@@ -1116,3 +1116,10 @@ footer p:first-child {
         font-size: 38px;
     }
 }
+.hero-qualification {
+    color: #475569;
+    font-size: 14px;
+    font-weight: 600;
+    margin-top: -10px;
+    margin-bottom: 18px;
+}
