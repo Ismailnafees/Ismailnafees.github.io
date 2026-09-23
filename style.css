@@ -1048,4 +1048,11 @@ footer p:first-child {
     font-weight: 700;
     letter-spacing: 1px;
 }
+.education-year {
+    display: inline-block;
+    margin-left: 8px;
+    color: #8f9db8;
+    font-size: 12px;
+    font-weight: 600;
+}
 /* GitHub Pages deployment refresh */
