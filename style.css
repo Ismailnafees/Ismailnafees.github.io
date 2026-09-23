@@ -991,4 +991,15 @@ footer p:first-child {
     object-fit: contain;
     background: #080c18;
 }
+.project-card {
+    padding: 40px;
+}
+
+.project-content h3 {
+    margin-bottom: 15px;
+}
+
+.project-content p {
+    line-height: 1.7;
+}
 /* GitHub Pages deployment refresh */
