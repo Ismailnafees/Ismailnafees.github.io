@@ -1213,4 +1213,9 @@ body {
 .project-label {
     color: #2563eb;
 }
+.project-tools span {
+    background: #eff6ff;
+    border: 1px solid #dbeafe;
+    color: #2563eb;
+}
 /* GitHub Pages deployment refresh */
