@@ -1032,4 +1032,8 @@ footer p:first-child {
         grid-template-columns: repeat(2, 1fr);
     }
 }
+.project-content .button {
+    margin-top: 10px;
+    display: inline-block;
+}
 /* GitHub Pages deployment refresh */
