@@ -1136,4 +1136,51 @@ body {
     color: #172033;
     background-attachment: fixed;
 }
+.navbar {
+    background: rgba(255, 255, 255, 0.88);
+    border-bottom: 1px solid rgba(15, 23, 42, 0.08);
+    box-shadow: 0 5px 25px rgba(15, 23, 42, 0.05);
+}
+
+.logo {
+    color: #172033;
+}
+
+.nav-links a {
+    color: #475569;
+}
+
+.nav-links a:hover {
+    color: #2563eb;
+}
+.hero h1 {
+    color: #172033;
+}
+
+.hero h1 span {
+    color: #2563eb;
+}
+
+.hero h2 {
+    color: #2563eb;
+}
+
+.hero-text {
+    color: #64748b;
+}
+
+.small-title {
+    color: #2563eb;
+}
+.about-content p {
+    color: #475569;
+}
+
+.section-title h2 {
+    color: #172033;
+}
+
+.section-title p {
+    color: #2563eb;
+}
 /* GitHub Pages deployment refresh */
