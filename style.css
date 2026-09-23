@@ -1055,4 +1055,34 @@ footer p:first-child {
     font-size: 12px;
     font-weight: 600;
 }
+@media (max-width: 700px) {
+    .nav-links {
+        gap: 12px;
+        overflow-x: auto;
+        white-space: nowrap;
+        padding-bottom: 5px;
+    }
+
+    .nav-links a {
+        font-size: 12px;
+    }
+}
+@media (max-width: 700px) {
+    .hero {
+        padding-top: 110px;
+    }
+
+    .hero-content {
+        text-align: center;
+    }
+
+    .hero-content .buttons {
+        justify-content: center;
+    }
+
+    .section {
+        padding-left: 20px;
+        padding-right: 20px;
+    }
+}
 /* GitHub Pages deployment refresh */
