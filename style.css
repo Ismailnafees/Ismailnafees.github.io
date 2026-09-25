@@ -2269,3 +2269,18 @@ footer {
     background: #2563eb;
     color: #ffffff;
 }
+/* CONTACT BUTTON ICON SPACING */
+
+.contact .button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px !important;
+}
+
+.contact .button .social-icon {
+    width: 20px;
+    height: 20px;
+    flex-shrink: 0;
+    margin-right: 2px;
+}
