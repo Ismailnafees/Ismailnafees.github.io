@@ -2367,3 +2367,11 @@ footer {
     color: #ffffff;
     transform: translateY(-2px);
 }
+.nav-links a[href="game.html"] {
+    color: #2563eb;
+    font-weight: 600;
+}
+
+.nav-links a[href="game.html"]:hover {
+    color: #1d4ed8;
+}
