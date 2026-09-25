@@ -2239,3 +2239,33 @@ footer {
     }
 
 }
+/* =========================================
+   CONTACT BUTTON FIX
+========================================= */
+
+.contact .button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+}
+
+.contact .social-icon {
+    width: 18px;
+    height: 18px;
+    flex-shrink: 0;
+}
+
+/* Make all contact buttons consistent */
+.contact .button,
+.contact .button.secondary {
+    background: #ffffff;
+    color: #2563eb;
+    border: 1px solid #cbdcf5;
+}
+
+.contact .button:hover,
+.contact .button.secondary:hover {
+    background: #2563eb;
+    color: #ffffff;
+}
