@@ -2284,3 +2284,37 @@ footer {
     flex-shrink: 0;
     margin-right: 2px;
 }
+/* =========================================
+   MOBILE NAVIGATION FIX
+========================================= */
+
+@media (max-width: 700px) {
+
+    .navbar {
+        flex-direction: column;
+        gap: 18px;
+        padding: 18px 20px;
+    }
+
+    .nav-links {
+        width: 100%;
+        display: flex;
+        justify-content: flex-start;
+        flex-wrap: nowrap;
+        overflow-x: auto;
+        gap: 18px;
+        padding-bottom: 4px;
+        scrollbar-width: none;
+        white-space: nowrap;
+    }
+
+    .nav-links::-webkit-scrollbar {
+        display: none;
+    }
+
+    .nav-links a {
+        flex-shrink: 0;
+        font-size: 13px;
+    }
+
+}
