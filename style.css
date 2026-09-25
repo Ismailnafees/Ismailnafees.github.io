@@ -2332,3 +2332,27 @@ footer {
     color: #ffffff;
     transform: translateY(-2px);
 }
+/* =========================================
+   SUBTLE ICON HOVER
+========================================= */
+
+.social-icon,
+.project-icon {
+    transition: transform 0.2s ease;
+}
+
+.button:hover .social-icon,
+.project-button:hover .project-icon {
+    transform: scale(1.15);
+}
+.button:hover .social-icon {
+    transform: scale(1.15);
+}
+
+.project-button:hover .project-icon {
+    transform: scale(1.15);
+}
+
+.project-button:hover .project-arrow {
+    transform: none;
+}
