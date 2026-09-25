@@ -2356,3 +2356,14 @@ footer {
 .project-button:hover .project-arrow {
     transform: none;
 }
+.game-button {
+    border: 1.5px solid #2563eb;
+    color: #2563eb;
+    font-weight: 600;
+}
+
+.game-button:hover {
+    background: #2563eb;
+    color: #ffffff;
+    transform: translateY(-2px);
+}
