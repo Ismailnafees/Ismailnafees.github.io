@@ -1,1 +1,2090 @@
+<!DOCTYPE html>
+<html lang="en">
 
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Data Runner | Ismail Nafees</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        :root {
+            --blue: #2563eb;
+            --blue-dark: #1d4ed8;
+            --blue-light: #dbeafe;
+            --text: #172033;
+            --muted: #64748b;
+            --border: #dbe7f5;
+            --bg: #f5f9ff;
+        }
+
+        body {
+            font-family:
+                Inter,
+                -apple-system,
+                BlinkMacSystemFont,
+                "Segoe UI",
+                Arial,
+                sans-serif;
+
+            min-height: 100vh;
+            background:
+                radial-gradient(circle at top right, #e5efff 0, transparent 35%),
+                var(--bg);
+
+            color: var(--text);
+
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            padding: 20px;
+        }
+
+        .game-wrapper {
+            width: 100%;
+            max-width: 1050px;
+        }
+
+        /* HEADER */
+
+        .game-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+
+            margin-bottom: 18px;
+            gap: 15px;
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .brand-icon {
+            width: 46px;
+            height: 46px;
+
+            border-radius: 13px;
+
+            background: var(--blue);
+            color: white;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            font-size: 15px;
+            font-weight: 800;
+
+            box-shadow:
+                0 8px 20px rgba(37, 99, 235, 0.22);
+        }
+
+        .brand h1 {
+            font-size: 24px;
+            line-height: 1.1;
+        }
+
+        .brand p {
+            color: var(--muted);
+            font-size: 12px;
+            margin-top: 4px;
+        }
+
+        .back-button {
+            display: inline-flex;
+            align-items: center;
+            gap: 7px;
+
+            padding: 10px 15px;
+
+            color: var(--blue);
+            background: white;
+
+            border: 1px solid var(--border);
+            border-radius: 9px;
+
+            text-decoration: none;
+
+            font-size: 14px;
+            font-weight: 600;
+
+            transition:
+                transform .2s ease,
+                background .2s ease;
+        }
+
+        .back-button:hover {
+            background: var(--blue-light);
+            transform: translateY(-2px);
+        }
+
+        /* GAME CARD */
+
+        .game-card {
+            background: white;
+
+            border: 1px solid var(--border);
+            border-radius: 22px;
+
+            padding: 18px;
+
+            box-shadow:
+                0 18px 50px rgba(37, 99, 235, .10);
+        }
+
+        /* STATS */
+
+        .stats-bar {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+
+            gap: 10px;
+
+            margin-bottom: 15px;
+        }
+
+        .stat {
+            background: #f8fbff;
+
+            border: 1px solid #e4edf8;
+
+            border-radius: 12px;
+
+            padding: 11px 13px;
+        }
+
+        .stat-label {
+            display: block;
+
+            color: var(--muted);
+
+            font-size: 11px;
+
+            text-transform: uppercase;
+
+            letter-spacing: .5px;
+
+            margin-bottom: 4px;
+        }
+
+        .stat-value {
+            font-size: 18px;
+
+            font-weight: 800;
+
+            color: var(--blue);
+        }
+
+        /* CANVAS */
+
+        .canvas-container {
+            position: relative;
+
+            width: 100%;
+
+            aspect-ratio: 16 / 7;
+
+            min-height: 300px;
+
+            overflow: hidden;
+
+            border-radius: 17px;
+
+            border: 1px solid #d6e4f5;
+
+            background: #eef6ff;
+        }
+
+        canvas {
+            width: 100%;
+            height: 100%;
+
+            display: block;
+
+            cursor: pointer;
+
+            touch-action: manipulation;
+        }
+
+        /* OVERLAY */
+
+        .overlay {
+            position: absolute;
+
+            inset: 0;
+
+            display: flex;
+
+            justify-content: center;
+            align-items: center;
+
+            padding: 20px;
+
+            background:
+                rgba(255, 255, 255, .90);
+
+            backdrop-filter: blur(5px);
+
+            z-index: 5;
+        }
+
+        .overlay.hidden {
+            display: none;
+        }
+
+        .overlay-content {
+            width: min(440px, 100%);
+
+            text-align: center;
+
+            background: white;
+
+            border: 1px solid var(--border);
+
+            border-radius: 20px;
+
+            padding: 30px 25px;
+
+            box-shadow:
+                0 20px 50px rgba(37, 99, 235, .12);
+        }
+
+        .overlay-icon {
+            width: 65px;
+            height: 65px;
+
+            margin: 0 auto 15px;
+
+            border-radius: 18px;
+
+            background: var(--blue-light);
+
+            color: var(--blue);
+
+            display: flex;
+
+            align-items: center;
+            justify-content: center;
+
+            font-size: 25px;
+
+            font-weight: 800;
+        }
+
+        .overlay h2 {
+            font-size: 28px;
+
+            margin-bottom: 9px;
+        }
+
+        .overlay p {
+            color: var(--muted);
+
+            line-height: 1.6;
+
+            font-size: 14px;
+
+            margin-bottom: 20px;
+        }
+
+        .controls {
+            display: flex;
+
+            justify-content: center;
+
+            gap: 7px;
+
+            margin-bottom: 20px;
+
+            flex-wrap: wrap;
+        }
+
+        .control-key {
+            padding: 6px 10px;
+
+            background: #f1f5f9;
+
+            border: 1px solid #e2e8f0;
+
+            border-radius: 6px;
+
+            font-size: 11px;
+
+            font-weight: 700;
+
+            color: #475569;
+        }
+
+        .start-button {
+            border: none;
+
+            background: var(--blue);
+
+            color: white;
+
+            padding: 12px 24px;
+
+            border-radius: 9px;
+
+            font-size: 14px;
+
+            font-weight: 700;
+
+            cursor: pointer;
+
+            transition:
+                transform .2s ease,
+                background .2s ease;
+        }
+
+        .start-button:hover {
+            background: var(--blue-dark);
+
+            transform: translateY(-2px);
+        }
+
+        .game-info {
+            display: flex;
+
+            justify-content: space-between;
+
+            align-items: center;
+
+            margin-top: 14px;
+
+            gap: 15px;
+
+            color: var(--muted);
+
+            font-size: 12px;
+        }
+
+        .game-info strong {
+            color: var(--blue);
+        }
+
+        @media (max-width: 700px) {
+
+            body {
+                padding: 10px;
+            }
+
+            .game-card {
+                padding: 12px;
+
+                border-radius: 17px;
+            }
+
+            .game-header {
+                align-items: flex-start;
+            }
+
+            .brand h1 {
+                font-size: 20px;
+            }
+
+            .brand-icon {
+                width: 40px;
+                height: 40px;
+            }
+
+            .back-button {
+                padding: 8px 11px;
+                font-size: 12px;
+            }
+
+            .stats-bar {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .canvas-container {
+                aspect-ratio: 4 / 3;
+                min-height: 330px;
+            }
+
+            .game-info {
+                flex-direction: column;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+
+
+<body>
+
+<main class="game-wrapper">
+
+    <header class="game-header">
+
+        <div class="brand">
+
+            <div class="brand-icon">
+                DR
+            </div>
+
+            <div>
+                <h1>Data Runner</h1>
+                <p>A mini data analytics challenge</p>
+            </div>
+
+        </div>
+
+        <a href="index.html" class="back-button">
+            ← Portfolio
+        </a>
+
+    </header>
+
+
+    <section class="game-card">
+
+        <div class="stats-bar">
+
+            <div class="stat">
+                <span class="stat-label">Score</span>
+                <span class="stat-value" id="score">0</span>
+            </div>
+
+            <div class="stat">
+                <span class="stat-label">Lives</span>
+                <span class="stat-value" id="lives">3</span>
+            </div>
+
+            <div class="stat">
+                <span class="stat-label">Level</span>
+                <span class="stat-value" id="level">1</span>
+            </div>
+
+            <div class="stat">
+                <span class="stat-label">Best</span>
+                <span class="stat-value" id="best">0</span>
+            </div>
+
+        </div>
+
+
+        <div class="canvas-container">
+
+            <canvas id="gameCanvas"></canvas>
+
+            <div class="overlay" id="overlay">
+
+                <div class="overlay-content">
+
+                    <div class="overlay-icon" id="overlayIcon">
+                        ▶
+                    </div>
+
+                    <h2 id="overlayTitle">
+                        Data Runner
+                    </h2>
+
+                    <p id="overlayText">
+                        Run through the data pipeline,
+                        avoid bad data and collect clean records.
+                    </p>
+
+                    <div class="controls">
+
+                        <span class="control-key">
+                            SPACE
+                        </span>
+
+                        <span class="control-key">
+                            ↑
+                        </span>
+
+                        <span class="control-key">
+                            TAP
+                        </span>
+
+                        <span class="control-key">
+                            JUMP
+                        </span>
+
+                    </div>
+
+                    <button
+                        class="start-button"
+                        id="startButton">
+                        Start Game
+                    </button>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <div class="game-info">
+
+            <span>
+                Avoid
+                <strong>NULL</strong>,
+                <strong>DUPLICATE</strong> &
+                <strong>OUTLIER</strong>
+            </span>
+
+            <span>
+                Collect
+                <strong>VALID DATA</strong>
+            </span>
+
+        </div>
+
+    </section>
+
+</main>
+
+
+<script>
+
+const canvas =
+    document.getElementById("gameCanvas");
+
+const ctx =
+    canvas.getContext("2d");
+
+
+const container =
+    document.querySelector(".canvas-container");
+
+
+const scoreElement =
+    document.getElementById("score");
+
+const livesElement =
+    document.getElementById("lives");
+
+const levelElement =
+    document.getElementById("level");
+
+const bestElement =
+    document.getElementById("best");
+
+const overlay =
+    document.getElementById("overlay");
+
+const overlayIcon =
+    document.getElementById("overlayIcon");
+
+const overlayTitle =
+    document.getElementById("overlayTitle");
+
+const overlayText =
+    document.getElementById("overlayText");
+
+const startButton =
+    document.getElementById("startButton");
+
+
+/* =========================================
+   YOUR PHOTO
+========================================= */
+
+const faceImage = new Image();
+
+faceImage.src = "profile.png";
+
+let faceLoaded = false;
+
+faceImage.onload = function () {
+    faceLoaded = true;
+};
+
+
+/* =========================================
+   GAME STATE
+========================================= */
+
+let width = 900;
+let height = 394;
+
+let running = false;
+
+let score = 0;
+let lives = 3;
+let level = 1;
+
+let bestScore =
+    Number(
+        localStorage.getItem("dataRunnerBest")
+    ) || 0;
+
+bestElement.textContent =
+    bestScore;
+
+let lastTime = 0;
+
+let obstacleTimer = 0;
+
+let dataTimer = 0;
+
+let distance = 0;
+
+let animationFrame;
+
+
+/* =========================================
+   PLAYER
+========================================= */
+
+const player = {
+
+    x: 105,
+
+    y: 0,
+
+    width: 52,
+
+    height: 76,
+
+    velocityY: 0,
+
+    gravity: 1750,
+
+    jumpPower: 700,
+
+    grounded: true,
+
+    runTime: 0,
+
+    hitTimer: 0
+
+};
+
+
+/* =========================================
+   OBJECTS
+========================================= */
+
+let obstacles = [];
+
+let dataItems = [];
+
+let particles = [];
+
+
+const obstacleTypes = [
+    "NULL",
+    "DUPLICATE",
+    "OUTLIER"
+];
+
+
+/* =========================================
+   RESIZE
+========================================= */
+
+function resizeCanvas() {
+
+    const rect =
+        container.getBoundingClientRect();
+
+    const ratio =
+        window.devicePixelRatio || 1;
+
+    width = rect.width;
+
+    height = rect.height;
+
+    canvas.width =
+        width * ratio;
+
+    canvas.height =
+        height * ratio;
+
+    ctx.setTransform(
+        ratio,
+        0,
+        0,
+        ratio,
+        0,
+        0
+    );
+
+    player.y =
+        getGroundY() - player.height;
+}
+
+
+function getGroundY() {
+
+    return height - 65;
+
+}
+
+
+window.addEventListener(
+    "resize",
+    resizeCanvas
+);
+
+
+/* =========================================
+   START
+========================================= */
+
+function startGame() {
+
+    score = 0;
+
+    lives = 3;
+
+    level = 1;
+
+    distance = 0;
+
+    obstacleTimer = 0;
+
+    dataTimer = 0;
+
+    obstacles = [];
+
+    dataItems = [];
+
+    particles = [];
+
+    player.velocityY = 0;
+
+    player.grounded = true;
+
+    player.hitTimer = 0;
+
+    scoreElement.textContent = score;
+
+    livesElement.textContent = lives;
+
+    levelElement.textContent = level;
+
+    overlay.classList.add("hidden");
+
+    running = true;
+
+    lastTime =
+        performance.now();
+
+    cancelAnimationFrame(
+        animationFrame
+    );
+
+    animationFrame =
+        requestAnimationFrame(
+            gameLoop
+        );
+}
+
+
+/* =========================================
+   GAME OVER
+========================================= */
+
+function gameOver() {
+
+    running = false;
+
+    if (score > bestScore) {
+
+        bestScore = score;
+
+        localStorage.setItem(
+            "dataRunnerBest",
+            bestScore
+        );
+    }
+
+    bestElement.textContent =
+        bestScore;
+
+    overlay.classList.remove("hidden");
+
+    overlayIcon.textContent =
+        "✓";
+
+    overlayTitle.textContent =
+        "Run Complete";
+
+    overlayText.innerHTML =
+        `You scored <strong>${score}</strong> points.<br>
+         Best score: <strong>${bestScore}</strong>`;
+
+    startButton.textContent =
+        "Play Again";
+}
+
+
+/* =========================================
+   JUMP
+========================================= */
+
+function jump() {
+
+    if (!running) return;
+
+    if (!player.grounded) return;
+
+    player.velocityY =
+        -player.jumpPower;
+
+    player.grounded = false;
+}
+
+
+document.addEventListener(
+    "keydown",
+    function(event) {
+
+        if (
+            event.code === "Space" ||
+            event.code === "ArrowUp"
+        ) {
+
+            event.preventDefault();
+
+            jump();
+
+        }
+
+    }
+);
+
+
+canvas.addEventListener(
+    "pointerdown",
+    jump
+);
+
+
+/* =========================================
+   OBSTACLE
+========================================= */
+
+function spawnObstacle() {
+
+    const type =
+        obstacleTypes[
+            Math.floor(
+                Math.random() *
+                obstacleTypes.length
+            )
+        ];
+
+    obstacles.push({
+
+        x: width + 50,
+
+        y: getGroundY() - 48,
+
+        width:
+            Math.max(
+                82,
+                Math.min(
+                    120,
+                    70 + type.length * 5
+                )
+            ),
+
+        height: 48,
+
+        type: type,
+
+        speed:
+            260 + level * 28
+
+    });
+}
+
+
+/* =========================================
+   VALID DATA
+========================================= */
+
+function spawnData() {
+
+    dataItems.push({
+
+        x: width + 40,
+
+        y:
+            getGroundY()
+            - 90
+            - Math.random() * 80,
+
+        width: 78,
+
+        height: 38,
+
+        speed:
+            250 + level * 25,
+
+        rotation: 0
+
+    });
+}
+
+
+/* =========================================
+   COLLISION
+========================================= */
+
+function collision(a, b) {
+
+    return (
+
+        a.x <
+        b.x + b.width &&
+
+        a.x + a.width >
+        b.x &&
+
+        a.y <
+        b.y + b.height &&
+
+        a.y + a.height >
+        b.y
+
+    );
+}
+
+
+/* =========================================
+   PARTICLES
+========================================= */
+
+function createParticles(
+    x,
+    y,
+    type
+) {
+
+    for (
+        let i = 0;
+        i < 10;
+        i++
+    ) {
+
+        particles.push({
+
+            x: x,
+
+            y: y,
+
+            vx:
+                (Math.random() - .5)
+                * 150,
+
+            vy:
+                (Math.random() - .5)
+                * 150,
+
+            life: .6,
+
+            type: type
+
+        });
+    }
+}
+
+
+/* =========================================
+   UPDATE
+========================================= */
+
+function update(delta) {
+
+    distance += delta;
+
+    level =
+        Math.floor(score / 250) + 1;
+
+    levelElement.textContent =
+        level;
+
+
+    /* PLAYER */
+
+    player.velocityY +=
+        player.gravity * delta;
+
+    player.y +=
+        player.velocityY * delta;
+
+    const ground =
+        getGroundY();
+
+    if (
+        player.y +
+        player.height >=
+        ground
+    ) {
+
+        player.y =
+            ground -
+            player.height;
+
+        player.velocityY = 0;
+
+        player.grounded = true;
+    }
+
+
+    player.runTime += delta;
+
+
+    if (player.hitTimer > 0) {
+
+        player.hitTimer -= delta;
+
+    }
+
+
+    /* OBSTACLES */
+
+    obstacleTimer -= delta;
+
+    const obstacleDelay =
+        Math.max(
+            .65,
+            1.35 -
+            level * .06
+        );
+
+    if (obstacleTimer <= 0) {
+
+        spawnObstacle();
+
+        obstacleTimer =
+            obstacleDelay +
+            Math.random() * .45;
+    }
+
+
+    obstacles.forEach(
+        obstacle => {
+
+            obstacle.x -=
+                obstacle.speed *
+                delta;
+
+        }
+    );
+
+
+    obstacles =
+        obstacles.filter(
+            obstacle =>
+                obstacle.x +
+                obstacle.width >
+                -100
+        );
+
+
+    /* DATA */
+
+    dataTimer -= delta;
+
+    if (dataTimer <= 0) {
+
+        spawnData();
+
+        dataTimer =
+            1.3 +
+            Math.random() * 1.8;
+    }
+
+
+    dataItems.forEach(
+        item => {
+
+            item.x -=
+                item.speed *
+                delta;
+
+            item.rotation +=
+                delta * 2;
+
+        }
+    );
+
+
+    dataItems =
+        dataItems.filter(
+            item =>
+                item.x +
+                item.width >
+                -100
+        );
+
+
+    /* COLLISION */
+
+    obstacles.forEach(
+        obstacle => {
+
+            if (
+                collision(
+                    player,
+                    obstacle
+                )
+            ) {
+
+                obstacle.x = -500;
+
+                lives--;
+
+                livesElement.textContent =
+                    lives;
+
+                player.hitTimer =
+                    .8;
+
+                createParticles(
+                    player.x +
+                    player.width / 2,
+
+                    player.y +
+                    player.height / 2,
+
+                    "bad"
+                );
+
+                if (lives <= 0) {
+
+                    gameOver();
+
+                }
+
+            }
+
+        }
+    );
+
+
+    /* COLLECT DATA */
+
+    dataItems.forEach(
+        item => {
+
+            if (
+                collision(
+                    player,
+                    item
+                )
+            ) {
+
+                item.x = -500;
+
+                score += 25;
+
+                scoreElement.textContent =
+                    score;
+
+                createParticles(
+                    item.x +
+                    item.width / 2,
+
+                    item.y +
+                    item.height / 2,
+
+                    "good"
+                );
+
+            }
+
+        }
+    );
+
+
+    /* PARTICLES */
+
+    particles.forEach(
+        particle => {
+
+            particle.x +=
+                particle.vx *
+                delta;
+
+            particle.y +=
+                particle.vy *
+                delta;
+
+            particle.life -=
+                delta;
+
+        }
+    );
+
+
+    particles =
+        particles.filter(
+            particle =>
+                particle.life > 0
+        );
+
+
+    /* SCORE */
+
+    score +=
+        Math.floor(
+            delta *
+            (8 + level * 2)
+        );
+
+    scoreElement.textContent =
+        score;
+}
+
+
+/* =========================================
+   BACKGROUND
+========================================= */
+
+function drawBackground() {
+
+    const gradient =
+        ctx.createLinearGradient(
+            0,
+            0,
+            0,
+            height
+        );
+
+    gradient.addColorStop(
+        0,
+        "#e8f2ff"
+    );
+
+    gradient.addColorStop(
+        1,
+        "#ffffff"
+    );
+
+    ctx.fillStyle =
+        gradient;
+
+    ctx.fillRect(
+        0,
+        0,
+        width,
+        height
+    );
+
+
+    /* GRID */
+
+    ctx.strokeStyle =
+        "rgba(37,99,235,.07)";
+
+    ctx.lineWidth = 1;
+
+    const gridSize = 45;
+
+    const offset =
+        -(distance * 25) %
+        gridSize;
+
+    for (
+        let x = offset;
+        x < width;
+        x += gridSize
+    ) {
+
+        ctx.beginPath();
+
+        ctx.moveTo(
+            x,
+            0
+        );
+
+        ctx.lineTo(
+            x,
+            getGroundY()
+        );
+
+        ctx.stroke();
+    }
+
+
+    for (
+        let y = 30;
+        y < getGroundY();
+        y += gridSize
+    ) {
+
+        ctx.beginPath();
+
+        ctx.moveTo(
+            0,
+            y
+        );
+
+        ctx.lineTo(
+            width,
+            y
+        );
+
+        ctx.stroke();
+    }
+
+
+    /* DATA DOTS */
+
+    for (
+        let i = 0;
+        i < 14;
+        i++
+    ) {
+
+        const x =
+            (
+                i * 117 -
+                distance * 12
+            ) % width;
+
+        const safeX =
+            x < 0
+                ? x + width
+                : x;
+
+        const y =
+            45 +
+            (i * 37) %
+            Math.max(
+                80,
+                getGroundY() - 130
+            );
+
+        ctx.fillStyle =
+            "rgba(37,99,235,.12)";
+
+        ctx.beginPath();
+
+        ctx.arc(
+            safeX,
+            y,
+            3,
+            0,
+            Math.PI * 2
+        );
+
+        ctx.fill();
+    }
+
+
+    /* GROUND */
+
+    const ground =
+        getGroundY();
+
+    ctx.fillStyle =
+        "#f1f7ff";
+
+    ctx.fillRect(
+        0,
+        ground,
+        width,
+        height - ground
+    );
+
+
+    ctx.strokeStyle =
+        "#2563eb";
+
+    ctx.lineWidth = 2;
+
+    ctx.beginPath();
+
+    ctx.moveTo(
+        0,
+        ground
+    );
+
+    ctx.lineTo(
+        width,
+        ground
+    );
+
+    ctx.stroke();
+
+
+    /* GROUND MARKERS */
+
+    ctx.fillStyle =
+        "#bfdbfe";
+
+    const markerOffset =
+        -(distance * 180) %
+        80;
+
+    for (
+        let x = markerOffset;
+        x < width;
+        x += 80
+    ) {
+
+        ctx.fillRect(
+            x,
+            ground + 25,
+            35,
+            3
+        );
+    }
+}
+
+
+/* =========================================
+   DRAW PLAYER WITH YOUR FACE
+========================================= */
+
+function drawPlayer() {
+
+    const x =
+        player.x;
+
+    const y =
+        player.y;
+
+    ctx.save();
+
+
+    if (
+        player.hitTimer > 0
+    ) {
+
+        ctx.globalAlpha =
+            Math.sin(
+                player.hitTimer * 30
+            ) > 0
+                ? .35
+                : 1;
+    }
+
+
+    /* SHADOW */
+
+    ctx.fillStyle =
+        "rgba(37,99,235,.12)";
+
+    ctx.beginPath();
+
+    ctx.ellipse(
+        x + 25,
+        getGroundY() + 3,
+        29,
+        6,
+        0,
+        0,
+        Math.PI * 2
+    );
+
+    ctx.fill();
+
+
+    /* ANIMATION */
+
+    const running =
+        Math.sin(
+            player.runTime * 15
+        );
+
+
+    /* LEGS */
+
+    ctx.strokeStyle =
+        "#172033";
+
+    ctx.lineWidth = 6;
+
+    ctx.lineCap = "round";
+
+
+    ctx.beginPath();
+
+    ctx.moveTo(
+        x + 21,
+        y + 55
+    );
+
+    ctx.lineTo(
+        x + 14 +
+        running * 5,
+        y + 73
+    );
+
+    ctx.stroke();
+
+
+    ctx.beginPath();
+
+    ctx.moveTo(
+        x + 32,
+        y + 55
+    );
+
+    ctx.lineTo(
+        x + 42 -
+        running * 5,
+        y + 73
+    );
+
+    ctx.stroke();
+
+
+    /* BODY */
+
+    ctx.fillStyle =
+        "#2563eb";
+
+    ctx.beginPath();
+
+    ctx.roundRect(
+        x + 10,
+        y + 30,
+        31,
+        31,
+        9
+    );
+
+    ctx.fill();
+
+
+    /* SHIRT DETAILS */
+
+    ctx.fillStyle =
+        "rgba(255,255,255,.9)";
+
+    ctx.fillRect(
+        x + 19,
+        y + 37,
+        13,
+        3
+    );
+
+    ctx.fillRect(
+        x + 19,
+        y + 44,
+        8,
+        3
+    );
+
+
+    /* ARMS */
+
+    ctx.strokeStyle =
+        "#172033";
+
+    ctx.lineWidth = 5;
+
+
+    ctx.beginPath();
+
+    ctx.moveTo(
+        x + 12,
+        y + 34
+    );
+
+    ctx.lineTo(
+        x + 3 +
+        running * 5,
+        y + 47
+    );
+
+    ctx.stroke();
+
+
+    ctx.beginPath();
+
+    ctx.moveTo(
+        x + 39,
+        y + 34
+    );
+
+    ctx.lineTo(
+        x + 48 -
+        running * 5,
+        y + 47
+    );
+
+    ctx.stroke();
+
+
+    /* =====================================
+       YOUR FACE
+    ===================================== */
+
+    const faceSize = 39;
+
+    const faceX =
+        x + 6;
+
+    const faceY =
+        y - 2;
+
+
+    /* BLUE OUTLINE */
+
+    ctx.fillStyle =
+        "#2563eb";
+
+    ctx.beginPath();
+
+    ctx.arc(
+        faceX + faceSize / 2,
+        faceY + faceSize / 2,
+        faceSize / 2 + 3,
+        0,
+        Math.PI * 2
+    );
+
+    ctx.fill();
+
+
+    /* CIRCULAR CLIP */
+
+    ctx.save();
+
+    ctx.beginPath();
+
+    ctx.arc(
+        faceX + faceSize / 2,
+        faceY + faceSize / 2,
+        faceSize / 2,
+        0,
+        Math.PI * 2
+    );
+
+    ctx.clip();
+
+
+    if (faceLoaded) {
+
+        /*
+         * The original photo has a white background.
+         * This crops around the face and removes most
+         * of the shirt/background from the character.
+         */
+
+        const sourceSize =
+            Math.min(
+                faceImage.width,
+                faceImage.height
+            );
+
+        const sourceX =
+            (faceImage.width -
+                sourceSize) / 2;
+
+        const sourceY =
+            faceImage.height * .08;
+
+        const cropSize =
+            faceImage.height * .63;
+
+        ctx.drawImage(
+            faceImage,
+
+            sourceX,
+            sourceY,
+            sourceSize,
+            cropSize,
+
+            faceX,
+            faceY,
+            faceSize,
+            faceSize
+        );
+
+    } else {
+
+        /* fallback while image loads */
+
+        ctx.fillStyle =
+            "#f1c7a8";
+
+        ctx.fillRect(
+            faceX,
+            faceY,
+            faceSize,
+            faceSize
+        );
+    }
+
+    ctx.restore();
+
+
+    /* FACE BORDER */
+
+    ctx.strokeStyle =
+        "#ffffff";
+
+    ctx.lineWidth = 2;
+
+    ctx.beginPath();
+
+    ctx.arc(
+        faceX + faceSize / 2,
+        faceY + faceSize / 2,
+        faceSize / 2,
+        0,
+        Math.PI * 2
+    );
+
+    ctx.stroke();
+
+
+    ctx.restore();
+}
+
+
+/* =========================================
+   OBSTACLES
+========================================= */
+
+function drawObstacle(
+    obstacle
+) {
+
+    const x =
+        obstacle.x;
+
+    const y =
+        obstacle.y;
+
+    const w =
+        obstacle.width;
+
+    const h =
+        obstacle.height;
+
+
+    ctx.fillStyle =
+        "rgba(239,68,68,.10)";
+
+    ctx.fillRect(
+        x + 4,
+        y + 5,
+        w,
+        h
+    );
+
+
+    ctx.fillStyle =
+        "#fff7f7";
+
+    ctx.strokeStyle =
+        "#ef4444";
+
+    ctx.lineWidth = 2;
+
+    ctx.beginPath();
+
+    ctx.roundRect(
+        x,
+        y,
+        w,
+        h,
+        9
+    );
+
+    ctx.fill();
+
+    ctx.stroke();
+
+
+    /* WARNING SYMBOL */
+
+    ctx.fillStyle =
+        "#ef4444";
+
+    ctx.beginPath();
+
+    ctx.moveTo(
+        x + 17,
+        y + 13
+    );
+
+    ctx.lineTo(
+        x + 9,
+        y + 28
+    );
+
+    ctx.lineTo(
+        x + 25,
+        y + 28
+    );
+
+    ctx.closePath();
+
+    ctx.fill();
+
+
+    ctx.fillStyle =
+        "#ffffff";
+
+    ctx.font =
+        "bold 11px Arial";
+
+    ctx.textAlign =
+        "center";
+
+    ctx.fillText(
+        "!",
+        x + 17,
+        y + 25
+    );
+
+
+    ctx.fillStyle =
+        "#b91c1c";
+
+    ctx.font =
+        "700 11px Arial";
+
+    ctx.textAlign =
+        "left";
+
+    ctx.fillText(
+        obstacle.type,
+        x + 32,
+        y + 27
+    );
+}
+
+
+/* =========================================
+   VALID DATA
+========================================= */
+
+function drawData(
+    item
+) {
+
+    const x =
+        item.x;
+
+    const y =
+        item.y;
+
+
+    ctx.save();
+
+    ctx.translate(
+        x + item.width / 2,
+        y + item.height / 2
+    );
+
+
+    ctx.rotate(
+        Math.sin(
+            item.rotation
+        ) * .05
+    );
+
+
+    ctx.fillStyle =
+        "#f0fdf4";
+
+    ctx.strokeStyle =
+        "#16a34a";
+
+    ctx.lineWidth = 2;
+
+    ctx.beginPath();
+
+    ctx.roundRect(
+        -item.width / 2,
+        -item.height / 2,
+        item.width,
+        item.height,
+        9
+    );
+
+    ctx.fill();
+
+    ctx.stroke();
+
+
+    /* CHECK */
+
+    ctx.strokeStyle =
+        "#16a34a";
+
+    ctx.lineWidth = 3;
+
+    ctx.lineCap =
+        "round";
+
+    ctx.beginPath();
+
+    ctx.moveTo(
+        -25,
+        0
+    );
+
+    ctx.lineTo(
+        -18,
+        7
+    );
+
+    ctx.lineTo(
+        -7,
+        -8
+    );
+
+    ctx.stroke();
+
+
+    ctx.fillStyle =
+        "#15803d";
+
+    ctx.font =
+        "700 11px Arial";
+
+    ctx.textAlign =
+        "left";
+
+    ctx.fillText(
+        "VALID",
+        -2,
+        4
+    );
+
+
+    ctx.restore();
+}
+
+
+/* =========================================
+   PARTICLES
+========================================= */
+
+function drawParticles() {
+
+    particles.forEach(
+        particle => {
+
+            ctx.globalAlpha =
+                Math.max(
+                    0,
+                    particle.life
+                );
+
+            ctx.fillStyle =
+                particle.type === "good"
+                    ? "#16a34a"
+                    : "#ef4444";
+
+            ctx.beginPath();
+
+            ctx.arc(
+                particle.x,
+                particle.y,
+                3,
+                0,
+                Math.PI * 2
+            );
+
+            ctx.fill();
+        }
+    );
+
+    ctx.globalAlpha = 1;
+}
+
+
+/* =========================================
+   DRAW
+========================================= */
+
+function draw() {
+
+    drawBackground();
+
+    dataItems.forEach(
+        drawData
+    );
+
+    obstacles.forEach(
+        drawObstacle
+    );
+
+    drawPlayer();
+
+    drawParticles();
+}
+
+
+/* =========================================
+   GAME LOOP
+========================================= */
+
+function gameLoop(
+    currentTime
+) {
+
+    if (!running) {
+
+        draw();
+
+        return;
+    }
+
+
+    const delta =
+        Math.min(
+            (currentTime -
+                lastTime) / 1000,
+
+            .035
+        );
+
+    lastTime =
+        currentTime;
+
+
+    update(delta);
+
+    draw();
+
+
+    animationFrame =
+        requestAnimationFrame(
+            gameLoop
+        );
+}
+
+
+/* =========================================
+   BUTTON
+========================================= */
+
+startButton.addEventListener(
+    "click",
+    startGame
+);
+
+
+/* =========================================
+   INITIALIZE
+========================================= */
+
+resizeCanvas();
+
+draw();
+
+</script>
+
+</body>
+</html>
