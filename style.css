@@ -2102,3 +2102,82 @@ footer {
     }
 
 }
+/* =========================================
+   SOCIAL & PROJECT BUTTON ICONS
+========================================= */
+
+
+/* Social Buttons */
+
+.social-icon {
+    width: 18px;
+    height: 18px;
+    flex-shrink: 0;
+    fill: currentColor;
+    vertical-align: middle;
+    transition: transform 0.25s ease;
+}
+
+
+.button:hover .social-icon {
+    transform: translateY(-1px);
+}
+
+
+
+/* Project GitHub Buttons */
+
+.project-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 9px;
+    text-decoration: none;
+}
+
+
+.project-icon {
+    width: 18px;
+    height: 18px;
+    flex-shrink: 0;
+    fill: currentColor;
+    transition: transform 0.25s ease;
+}
+
+
+.project-arrow {
+    display: inline-block;
+    transition: transform 0.25s ease;
+}
+
+
+.project-button:hover .project-icon {
+    transform: translateY(-1px);
+}
+
+
+.project-button:hover .project-arrow {
+    transform: translateX(4px);
+}
+
+
+
+/* Mobile */
+
+@media (max-width: 600px) {
+
+    .social-icon {
+        width: 17px;
+        height: 17px;
+    }
+
+    .project-button {
+        gap: 8px;
+    }
+
+    .project-icon {
+        width: 17px;
+        height: 17px;
+    }
+
+}
