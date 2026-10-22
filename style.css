@@ -2118,3 +2118,61 @@ footer {
     }
 
 }
+/* =====================================================
+   DESKTOP HERO FIX
+   ===================================================== */
+
+@media screen and (min-width: 901px) {
+
+    .hero {
+        display: grid !important;
+        grid-template-columns: minmax(0, 1.2fr) minmax(240px, 0.7fr) minmax(280px, 0.8fr) !important;
+        align-items: center !important;
+        gap: 35px !important;
+
+        position: relative !important;
+        min-height: 650px !important;
+        height: auto !important;
+    }
+
+    .hero-content {
+        grid-column: 1 !important;
+        grid-row: 1 !important;
+
+        position: static !important;
+        transform: none !important;
+        width: 100% !important;
+        margin: 0 !important;
+    }
+
+    .hero-profile {
+        grid-column: 2 !important;
+        grid-row: 1 !important;
+
+        position: static !important;
+        transform: none !important;
+        width: 100% !important;
+        max-width: 280px !important;
+        margin: 0 auto !important;
+    }
+
+    .hero-card {
+        grid-column: 3 !important;
+        grid-row: 1 !important;
+
+        position: static !important;
+        transform: none !important;
+
+        width: 100% !important;
+        max-width: 340px !important;
+        margin: 0 auto !important;
+
+        align-self: center !important;
+    }
+
+    .hero-card .hero-stats,
+    .hero-card .stats {
+        display: grid !important;
+        grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    }
+}
