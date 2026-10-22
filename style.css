@@ -2001,3 +2001,49 @@ footer {
         text-align: center;
 
         gap
+/* ===== FIX HERO DATA ANALYTICS CARD ON MOBILE ===== */
+
+@media screen and (max-width: 700px) {
+
+    .hero {
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: center !important;
+        gap: 28px !important;
+        min-height: auto !important;
+        height: auto !important;
+        padding: 55px 20px 60px !important;
+    }
+
+    .hero-content {
+        width: 100% !important;
+        max-width: 520px !important;
+        order: 1 !important;
+    }
+
+    .hero-profile {
+        width: 100% !important;
+        max-width: 300px !important;
+        order: 2 !important;
+
+        position: static !important;
+        transform: none !important;
+        margin: 0 auto !important;
+    }
+
+    .hero-card {
+        width: 100% !important;
+        max-width: 340px !important;
+        order: 3 !important;
+
+        position: static !important;
+        transform: none !important;
+        margin: 0 auto !important;
+
+        align-self: center !important;
+    }
+
+    .hero-card .stats {
+        grid-template-columns: repeat(2, 1fr) !important;
+    }
+}
